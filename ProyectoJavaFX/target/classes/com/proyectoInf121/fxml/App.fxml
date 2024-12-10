@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.Button?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+            fx:controller="com.proyectoInf121.controllers.AppController">
+    <!-- Zona de visualización -->
+    <center>
+        <VBox spacing="10" alignment="CENTER">
+            <Label text="Visualización de Estructuras de Datos" />
+            <HBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER">
+                <VBox fx:id="stackContainer" spacing="5">
+                    <Label text="Pilas" />
+                    <!-- Aquí se agregarán visualizaciones de pilas -->
+                </VBox>
+                <VBox fx:id="queueContainer" spacing="5">
+                    <Label text="Colas" />
+                    <!-- Aquí se agregarán visualizaciones de colas -->
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+
+    <!-- Zona del formulario -->
+    <right>
+         <VBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER" style="-fx-padding: 10;">
+            <Label text="Formulario" style="-fx-font-size: 16;" />
+            <TextField fx:id="inputField" promptText="Ingrese un dato" />
+            <Button text="Agregar a la Pila" onAction="#handleAddToStack" />
+            <Button text="Agregar a la Cola" onAction="#handleAddToQueue" />
+            <!-- Botón para visualizar animaciones -->
+            <Button text="Visualizar Estructuras" onAction="#handleVisualizarDatos" />
+        </VBox>
+    </right>
+</BorderPane>
+
+
