@@ -1,3 +1,5 @@
+
+package com.proyectoInf121.estructurasDeDatos;
 public class Pedido {
 
     // en vez de nombre cliente se usa idPedido

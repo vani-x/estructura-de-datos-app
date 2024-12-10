@@ -1,3 +1,5 @@
+
+package com.proyectoInf121.estructurasDeDatos;
 public class Producto {
 
     private String nombreProducto,tipoProducto;

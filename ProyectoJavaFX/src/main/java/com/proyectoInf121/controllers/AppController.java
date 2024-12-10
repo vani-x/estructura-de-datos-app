@@ -8,59 +8,31 @@ import com.proyectoInf121.estructurasDeDatos.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.control.Label;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
-
+import javafx.animation.Timeline;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class AppController {
-   
+
     @FXML
     private Pane displayPane; // Panel donde se dibujarán las estructuras de datos
     @FXML
     private TextArea displayArea; // Área para texto descriptivo
     
-    // @FXML
-    // private VBox stackContainer;
+    @FXML
+    private VBox stackContainer;
 
-    // @FXML
-    // private VBox queueContainer;
+    @FXML
+    private VBox queueContainer;
 
-    // @FXML
-    // private TextField inputField;
-
-    // private void mostrarDatosIniciales() {
-    //     // Mostrar datos en el área de texto
-    //     StringBuilder datos = new StringBuilder();
-
-    //     datos.append("MultiCola de Visitantes:\n");
-    //     datos.append(multiColaVisitantes.mostrar()).append("\n\n");
-
-    //     datos.append("Lista de Emprendedores:\n");
-    //     datos.append(listaEmprendedores.mostrar()).append("\n\n");
-
-    //     datos.append("Pila de Pedidos:\n");
-    //     datos.append(pilaPedidos.mostrar()).append("\n\n");
-
-    //     displayArea.setText(datos.toString());
-    // }
-
-    // @FXML
-    // private void handleAdicionarVisitante() {
-    //     // Lógica para agregar un visitante desde el formulario
-    // }
-
-    // @FXML
-    // private void handleAdicionarPedido() {
-    //     // Lógica para agregar un pedido desde el formulario
-    // }
-
-    // @FXML
-    // private void handleMostrarDatos() {
-    //     mostrarDatosIniciales();
-    // }
+    @FXML
+    private TextField inputField;
 
 
 
@@ -74,60 +46,73 @@ public class AppController {
     }
 
     private void inicializarDatos() {
-        // Crear inversores, visitantes, emprendedores, productos, etc.
-        Inversor i1 = new Inversor("Juan", "Inversiones", "1", 25, "123456", 1000, 123456);
-        Inversor i2 = new Inversor("Pedro", "Comida", "1", 35, "123456", 2000, 123456);
-
-        Visitante v1 = new Visitante("Maria", "Tecnologia", "1", 20, 'F');
-        Visitante v2 = new Visitante("Ana", "Tecnologia", "1", 20, 'F');
-        Visitante v3 = new Visitante("Carlos", "Tecnologia", "1", 20, 'M');
-
-        Emprendedor e1 = new Emprendedor("Luis", "Tecnologia", "1", 20, "Empresa1");
-        Emprendedor e2 = new Emprendedor("Luisa", "Tecnologia", "1", 20, "Empresa2");
-
-        multiColaVisitantes = new MultiColaP();
-        multiColaVisitantes.adicionar(1, v1);
-        multiColaVisitantes.adicionar(2, i1);
-        multiColaVisitantes.adicionar(1, e1);
-        multiColaVisitantes.adicionar(2, v3);
-        multiColaVisitantes.setN(3);
-
-        listaEmprendedores = new LSimpleE();
-        listaEmprendedores.adicionar(e1);
-        listaEmprendedores.adicionar(e2);
-
-        Producto producto1 = new Producto("majadito", "almuerzo", 33);
-        Producto producto2 = new Producto("arroz", "almuerzo", 30);
-
-        LDobleP listaProductos = new LDobleP();
-        listaProductos.adicionar(producto1);
-        listaProductos.adicionar(producto2);
-
-        Pedido pedido1 = new Pedido("123", listaProductos);
-        Pedido pedido2 = new Pedido("124", listaProductos);
-
-        pilaPedidos = new PilaP();
-        pilaPedidos.adicionar(pedido1);
-        pilaPedidos.adicionar(pedido2);
+        multiColaVisitantes = cargarDatos.cargarDatosMultiColaP();
+        pilaPedidos = cargarDatos.cargarDatosPilaPedidos();
+        listaEmprendedores = cargarDatos.cargarDatosListaEmprendedores();
     }
 
     @FXML
     private void handleVisualizarDatos() {
         displayPane.getChildren().clear(); // Limpiar el panel de visualización
         animarMultiCola();
-        animarPila();
-        animarListaEmprendedores();
+        //animarPila();
+        //animarListaEmprendedores();
     }
 
     private void animarMultiCola() {
-        // Animación para MultiCola
-        PauseTransition pause = new PauseTransition(Duration.seconds(1));
-        pause.setOnFinished(event -> {
-            displayArea.appendText("Visualizando MultiCola de Visitantes...\n");
-            // Agregar elementos visuales al displayPane para representar MultiCola
-        });
-        pause.play();
+        displayPane.getChildren().clear(); // Limpiar el panel antes de dibujar
+        // PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        // pause.setOnFinished(event -> {
+        //     //displayArea.appendText("Visualizando MultiCola de Visitantes...\n");
+        Timeline timeline = new Timeline();    
+        int delayCounter = 0; // Contador para incrementar el tiempo de retraso
+            // Crear visualización para cada elemento de MultiCola
+            for (int i = 0; i < multiColaVisitantes.getN(); i++) {
+                CSimpleP cola = multiColaVisitantes.getV()[i];
+                CSimpleP aux=new CSimpleP();
+                
+                int columnIndex = i; // Índice de columna para posicionar los elementos
+                int[] elementPosition = {0}; // Mantener la posición actual en la fila (horizontal)
+
+               // int yPosition = 50 + (i - 1) * 60; // Espaciado vertical entre colas
+
+                while (!cola.esVacia()) {
+                    Persona persona = cola.eliminar(); // Obtener elemento
+                    int currentDelay = delayCounter++; // Retrasar cada nodo adicionalmente
+
+                    KeyFrame keyFrame = new KeyFrame(
+                            Duration.seconds(currentDelay * 0.5), // Duración progresiva para cada nodo
+                            event -> {
+                                // Crear un círculo para representar el visitante
+                                Circle circle = new Circle(20);
+                                circle.setFill(Color.LIGHTBLUE);
+                                circle.setStroke(Color.BLACK);
+
+                                // Posicionar el círculo
+                                circle.setLayoutX(50 + elementPosition[0] * 60);
+                                circle.setLayoutY(50 + columnIndex * 60);
+
+                                 // Incrementar la posición horizontal en la fila
+                                 elementPosition[0]++;
+                                // Agregar el círculo al panel
+                                displayPane.getChildren().add(circle);
+
+                                // Agregar un texto dentro del círculo (opcional)
+                                Label text = new Label(persona.getNombre());
+                                text.setStyle("-fx-font-weight: bold; -fx-text-fill: black;");
+                                text.setLayoutX(circle.getLayoutX() - 10);
+                                text.setLayoutY(circle.getLayoutY() - 10);
+                                displayPane.getChildren().add(text);
+                            }
+                    );
+                    timeline.getKeyFrames().add(keyFrame);
+                }
+                cola.vaciar(aux);
+              }
+          
+          timeline.play();
     }
+    
 
     private void animarPila() {
         // Animación para la Pila
@@ -150,36 +135,36 @@ public class AppController {
     }
 
 
-    // @FXML
-    // public void handleAddToStack() {
-    //     String data = inputField.getText();
-    //     if (!data.isEmpty()) {
-    //         pila.push(data);
-    //         updateStackVisualization();
-    //         inputField.clear();
-    //     }
-    // }
+    @FXML
+    public void handleAddToStack() {
+        // String data = inputField.getText();
+        // if (!data.isEmpty()) {
+        //     pila.push(data);
+        //     updateStackVisualization();
+        //     inputField.clear();
+        // }
+    }
 
-    // @FXML
-    // public void handleAddToQueue() {
-    //     String data = inputField.getText();
-    //     if (!data.isEmpty()) {
-    //         cola.enqueue(data);
-    //         updateQueueVisualization();
-    //         inputField.clear();
-    //     }
-    // }
+    @FXML
+    public void handleAddToQueue() {
+        // String data = inputField.getText();
+        // if (!data.isEmpty()) {
+        //     cola.enqueue(data);
+        //     updateQueueVisualization();
+        //     inputField.clear();
+        // }
+    }
 
-    // private void updateStackVisualization() {
-    //     stackContainer.getChildren().clear();
-    //     stackContainer.getChildren().add(new Label("Pilas"));
-    //     pila.getStack().forEach(item -> stackContainer.getChildren().add(new Label(item)));
-    // }
+    private void updateStackVisualization() {
+        // stackContainer.getChildren().clear();
+        // stackContainer.getChildren().add(new Label("Pilas"));
+        // pila.getStack().forEach(item -> stackContainer.getChildren().add(new Label(item)));
+    }
 
-    // private void updateQueueVisualization() {
-    //     queueContainer.getChildren().clear();
-    //     queueContainer.getChildren().add(new Label("Colas"));
-    //     cola.getQueue().forEach(item -> queueContainer.getChildren().add(new Label(item)));
-    // }
+    private void updateQueueVisualization() {
+        // queueContainer.getChildren().clear();
+        // queueContainer.getChildren().add(new Label("Colas"));
+        // cola.getQueue().forEach(item -> queueContainer.getChildren().add(new Label(item)));
+    }
 }
 

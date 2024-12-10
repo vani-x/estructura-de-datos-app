@@ -1,3 +1,4 @@
+package com.proyectoInf121.estructurasDeDatos;
 public class MultiColaP {
 
     private int n;
@@ -26,7 +27,7 @@ public class MultiColaP {
         v[i].mostrar();
     }
     public void mostrar(){
-        for(int i=1;i<n;i++){
+        for(int i=0;i<n;i++){
             System.out.println("Cola "+i);
             mostrar(i);
         }

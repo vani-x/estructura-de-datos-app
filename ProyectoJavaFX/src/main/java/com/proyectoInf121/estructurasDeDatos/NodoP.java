@@ -1,3 +1,4 @@
+package com.proyectoInf121.estructurasDeDatos;
 public class NodoP {
 
     private Producto producto;

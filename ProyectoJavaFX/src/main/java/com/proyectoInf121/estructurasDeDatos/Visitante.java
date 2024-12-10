@@ -1,3 +1,4 @@
+package com.proyectoInf121.estructurasDeDatos;
 public class Visitante extends Persona {
 
     private char sexo;

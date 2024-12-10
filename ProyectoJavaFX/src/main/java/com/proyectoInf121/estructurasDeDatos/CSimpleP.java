@@ -5,6 +5,13 @@ public class CSimpleP {
     private int max=50,ini,fin;
     private Persona[] v= new Persona[max];
 
+    
+    public Persona[] getV() {
+        return v;
+    }
+    public void setV(Persona[] v) {
+        this.v = v;
+    }
     public CSimpleP(){
         ini=0;
         fin=0;

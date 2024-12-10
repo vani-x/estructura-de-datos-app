@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
@@ -22,12 +22,14 @@
             <Label text="Visualización de Estructuras de Datos" />
             <HBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER">
                 <VBox fx:id="stackContainer" spacing="5">
-                    <Label text="Pilas" />
+                    <Label text="colas" />
                     <!-- Aquí se agregarán visualizaciones de pilas -->
+                     <Pane fx:id="displayPane" />
                 </VBox>
                 <VBox fx:id="queueContainer" spacing="5">
-                    <Label text="Colas" />
+                    <Label text="nose" />
                     <!-- Aquí se agregarán visualizaciones de colas -->
+                    <TextArea fx:id="displayArea" />
                 </VBox>
             </HBox>
         </VBox>
@@ -35,7 +37,7 @@
 
     <!-- Zona del formulario -->
     <right>
-         <VBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER" style="-fx-padding: 10;">
+        <VBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER" style="-fx-padding: 10;">
             <Label text="Formulario" style="-fx-font-size: 16;" />
             <TextField fx:id="inputField" promptText="Ingrese un dato" />
             <Button text="Agregar a la Pila" onAction="#handleAddToStack" />
@@ -44,6 +46,7 @@
             <Button text="Visualizar Estructuras" onAction="#handleVisualizarDatos" />
         </VBox>
     </right>
+
 </BorderPane>
 
 

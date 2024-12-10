@@ -8,6 +8,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -52,7 +54,7 @@ public class App extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/proyectoInf121/fxml/App.fxml" + //
                         ""));
         //AnchorPane root = loader.load();
-        VBox root = loader.load();
+        BorderPane root = loader.load();
 
         // Crear la escena y mostrar la ventana
         Scene scene = new Scene(root,800,600);

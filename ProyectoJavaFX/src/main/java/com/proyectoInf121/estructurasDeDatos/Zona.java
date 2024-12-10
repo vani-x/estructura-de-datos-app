@@ -1,3 +1,4 @@
+package com.proyectoInf121.estructurasDeDatos;
 public class Zona {
 
     private String tipo,nombre,idArea;
